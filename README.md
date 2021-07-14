@@ -30,11 +30,39 @@
 
 <pre>
 
-- MongoDB(Atlas)
-- Express
-- React
-- Node.js
-- GraphQL(Apollo server, which uses an Express server in the background)
+<kbd>MongoDB*</kbd> <sub>*Atlas</sub>
+
+<kbd>Express</kbd>
+
+<kbd>React</kbd>
+
+<kbd>Node.js</kbd>
+
+<kbd>GraphQL*</kbd> <sub>*GraphQL = Apollo server, 
+             which uses an Express server 
+             in the background</sub>
+          
+
+
+</pre>
+
+</div>
+
+## Dependencies
+
+<div align="left">
+
+<pre>
+
+<kbd>@apollo/react-hooks</kbd>
+
+<kbd>apollo-cache-inmemory</kbd>
+
+<kbd>apollo-link-http</kbd>
+
+<kbd>apollo-client</kbd>
+
+
 
 </pre>
 
