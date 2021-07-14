@@ -4,7 +4,13 @@ export default function Login() {
   //
   return (
     <>
-      <div>Login</div>
+      <div
+        style={{
+          width: "100%",
+          height: "100vh",
+          backgroundColor: "powderblue",
+        }}
+      ></div>
     </>
   );
 }
