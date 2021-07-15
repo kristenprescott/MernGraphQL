@@ -19,7 +19,7 @@ function Login(props) {
       props.history.push("/");
     },
     onError(err) {
-      setErrors(err.graphQLErrors[0].extensions);
+      setErrors(err.graphQLErrors[0].extensions.errors);
     },
     variables: values,
   });
@@ -50,9 +50,9 @@ function Login(props) {
           onChange={onChange}
           type="password"
         />{" "}
-        <div className="reg-btn-wrapper">
-          <Button className="reg-btn" type="submit" primary>
-            Submit
+        <div className="btn-wrapper login-btn-wrapper">
+          <Button className="btn login-btn" type="submit" primary>
+            Login
           </Button>
         </div>
       </Form>

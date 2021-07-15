@@ -69,8 +69,8 @@ function Register(props) {
           onChange={onChange}
           type="password"
         />
-        <div className="reg-btn-wrapper">
-          <Button className="reg-btn" type="submit" primary>
+        <div className="btn-wrapper reg-btn-wrapper">
+          <Button className="btn reg-btn" type="submit" primary>
             Submit
           </Button>
         </div>
