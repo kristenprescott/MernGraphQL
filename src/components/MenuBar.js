@@ -8,29 +8,10 @@ export default function MenuBar() {
   const pathname = window.location.pathname;
   const path = pathname === "/" ? "home" : pathname.substr(1);
 
-  //   const [activeItem, setActiveItem] = useState("home");
   const [activeItem, setActiveItem] = useState(path);
-  const [color, setColor] = useState("white");
-  const [activeColor, setActiveColor] = useState("red");
-  //   const [inactiveColor, setInactiveColor] = useState("white");
-  //   const [activeColor, setActiveColor] = useState(false);
 
   const handleItemClick = (e, { name }) => {
     setActiveItem(name);
-
-    // if (!activeColor) {
-    //   setColor("white");
-    // } else if (activeColor) {
-    //   setColor("red");
-    // }
-
-    setActiveColor(!activeColor);
-
-    if (color === activeColor) {
-      setColor("red");
-    } else {
-      setColor("white");
-    }
   };
 
   return (
@@ -51,10 +32,8 @@ export default function MenuBar() {
         to="/"
         backgroundColor="white"
       >
-        <span style={{ color: `${color}` }}>
-          <Icon name="home" />
-          Home
-        </span>
+        <Icon name="home" />
+        <span style={{ color: "white" }}>Home</span>
       </Menu.Item>
 
       <Menu.Menu position="right">
@@ -65,10 +44,8 @@ export default function MenuBar() {
           as={Link}
           to="/register"
         >
-          <span style={{ color: `${color}` }}>
-            <Icon name="user plus" />
-            Register
-          </span>
+          <Icon name="user plus" />
+          <span style={{ color: "white" }}>Register</span>
         </Menu.Item>
         <Menu.Item
           name="login"
@@ -77,10 +54,8 @@ export default function MenuBar() {
           as={Link}
           to="/login"
         >
-          <span style={{ color: `${color}` }}>
-            <Icon name="user" />
-            Login
-          </span>
+          <Icon name="user" />
+          <span style={{ color: "white" }}>Login</span>
         </Menu.Item>
       </Menu.Menu>
     </Menu>

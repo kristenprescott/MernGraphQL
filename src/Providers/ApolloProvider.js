@@ -11,6 +11,24 @@ const httpLink = createHttpLink({
   uri: `${serverURI}`,
 });
 
+// const client = new ApolloClient({
+//   // link: authLink.concat(httpLink),
+//   link: httpLink,
+//   cache: new InMemoryCache({
+//     typePolicies: {
+//       Query: {
+//         fields: {
+//           getPosts: {
+//             merge(existing, incoming) {
+//               return incoming;
+//             },
+//           },
+//         },
+//       },
+//     },
+//   }),
+// });
+
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),

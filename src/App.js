@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import { Container } from "semantic-ui-react";
 
 import "semantic-ui-css/semantic.min.css";
 // !IMPORTANT
@@ -15,7 +14,6 @@ import Register from "./pages/Register";
 function App() {
   return (
     <Router>
-      {/* <Container> */}
       <div className="ui container">
         <MenuBar />
         <Route exact path="/" component={Home} />
@@ -23,7 +21,6 @@ function App() {
         <Route exact path="/login" component={Login} />
 
         <Route exact path="/register" component={Register} />
-        {/* </Container> */}
       </div>
     </Router>
   );
