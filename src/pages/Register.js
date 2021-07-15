@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Form, Button } from "semantic-ui-react";
-// import { useMutation } from "@apollo/react-hooks";
 import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 
-const Register = () => {
+function Register(props) {
+  const history = useHistory();
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     username: "",
@@ -14,8 +15,9 @@ const Register = () => {
   });
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(proxy, result) {
+    update(_, result) {
       console.log("res: ", result);
+      history.push("/");
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.errors);
@@ -35,6 +37,8 @@ const Register = () => {
       password: "",
       confirmPassword: "",
     });
+
+    history.push("/");
   };
 
   const onChange = (e) => {
@@ -100,7 +104,7 @@ const Register = () => {
       )}
     </div>
   );
-};
+}
 
 const REGISTER_USER = gql`
   mutation register(
