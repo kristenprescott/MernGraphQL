@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
-import { useMutation } from "@apollo/react-hooks";
+// import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 
 const Register = () => {
+  const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -15,12 +17,24 @@ const Register = () => {
     update(proxy, result) {
       console.log("res: ", result);
     },
+    onError(err) {
+      setErrors(err.graphQLErrors[0].extensions.errors);
+      // console.log("CODE:", err.graphQLErrors[0].extensions.code);
+      // console.log("ERROR: ", err.graphQLErrors[0].extensions.errors);
+    },
     variables: values,
   });
 
   const onSubmit = (e) => {
     e.preventDefault();
     addUser();
+
+    setValues({
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   const onChange = (e) => {
@@ -30,16 +44,8 @@ const Register = () => {
   };
 
   return (
-    <div
-      className="form-container"
-      style={
-        {
-          // width: "100%",
-          // height: "100vh",
-        }
-      }
-    >
-      <Form onSubmit={onSubmit} noValidate>
+    <div className="form-container">
+      <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
         <h1 className="form-h1">Register</h1>
         <Form.Input
           label="Username"
@@ -79,6 +85,15 @@ const Register = () => {
           </Button>
         </div>
       </Form>
+      {Object.keys(errors).length > 0 && (
+        <div className="ui error message">
+          <ul className="list">
+            {Object.values(errors).map((value) => (
+              <li key={value}>{value}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
