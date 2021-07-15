@@ -52,6 +52,7 @@ const Register = () => {
           placeholder="username"
           name="username"
           value={values.username}
+          error={errors.username ? true : false}
           onChange={onChange}
           type="text"
         />
@@ -60,6 +61,7 @@ const Register = () => {
           placeholder="email"
           name="email"
           value={values.email}
+          error={errors.email ? true : false}
           onChange={onChange}
           type="email"
         />{" "}
@@ -68,6 +70,7 @@ const Register = () => {
           placeholder="password"
           name="password"
           value={values.password}
+          error={errors.password ? true : false}
           onChange={onChange}
           type="password"
         />{" "}
@@ -76,6 +79,7 @@ const Register = () => {
           placeholder="confirm password"
           name="confirmPassword"
           value={values.confirmPassword}
+          error={errors.confirmPassword ? true : false}
           onChange={onChange}
           type="password"
         />
