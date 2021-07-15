@@ -62,6 +62,8 @@
 
 <kbd>apollo-client</kbd>
 
+<kbd>jwt-decode</kbd>
+
 
 
 </pre>
