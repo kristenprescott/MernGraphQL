@@ -82,3 +82,50 @@ select:focus {
   text-align: center;
   margin: 1rem;
 }
+.form-container {
+  width: 400px;
+  margin: auto;
+  margin-top: 5rem;
+  padding: 2.5rem;
+  padding-top: 0px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.01);
+  border-left: 1px solid rgba(0, 0, 0, 0.01);
+  border-radius: 9px;
+  box-shadow: 5px 5px 3rem rgba(0, 0, 0, 0.25);
+}
+.form-h1 {
+  text-align: center;
+  margin-top: 2.5rem !important;
+  margin-bottom: 5rem;
+}
+.reg-btn-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  margin-top: 2.5rem !important;
+}
+.reg-btn {
+  width: 10rem !important;
+  height: 5rem !important;
+  border-radius: 9px !important;
+  background-color: transparent !important;
+  color: rgba(0, 0, 0, 0.5) !important;
+  text-transform: uppercase !important;
+
+  border: 2px solid rgba(0, 0, 0, 0.5) !important;
+}
+.reg-btn:hover {
+  /* background-color: tomato !important; */
+  border: 2px solid tomato !important;
+  /* color: white !important; */
+  color: rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.5) !important;
+}
+.reg-btn:active {
+  background-color: orangered !important;
+  color: white !important;
+  border: 2px solid rgb(235, 68, 7) !important;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7) !important;
+}

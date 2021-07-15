@@ -24,6 +24,7 @@ function PostCard({
   const commentOnPost = () => {
     console.log("comment on post.");
   };
+
   return (
     // <Card.Group centered>
     <Card fluid style={{ width: "100%", height: "100%" }}>
