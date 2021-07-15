@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 
+import { AuthContext } from "../context/auth";
+
 import { useForm } from "../utils/hooks";
 
 function Login(props) {
+  const context = useContext(AuthContext);
+
   const [errors, setErrors] = useState({});
 
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
@@ -14,8 +18,13 @@ function Login(props) {
   });
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update(_, result) {
-      console.log("res: ", result);
+    // update(_, result) {
+    //  destructured data from result^^
+    //  destructured login from data
+    //  gave login an alias: userData
+    update(_, { data: { login: userData } }) {
+      console.log("user login data: ", userData);
+      context.login(userData);
       props.history.push("/");
     },
     onError(err) {
@@ -23,6 +32,19 @@ function Login(props) {
     },
     variables: values,
   });
+
+  // const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+  //   update(_, result) {
+  //     console.log("res: ", result);
+  //     console.log("login data: ", result.data.login);
+  //     context.login(result.data.login);
+  //     props.history.push("/");
+  //   },
+  //   onError(err) {
+  //     setErrors(err.graphQLErrors[0].extensions.errors);
+  //   },
+  //   variables: values,
+  // });
 
   function loginUserCallback() {
     loginUser();

@@ -6,6 +6,8 @@ import "semantic-ui-css/semantic.min.css";
 // !Keep ./App.css import AFTER semantic-ui-css import
 import "./App.css";
 
+import { AuthProvider } from "./context/auth";
+
 import MenuBar from "./components/MenuBar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -13,16 +15,18 @@ import Register from "./pages/Register";
 
 function App() {
   return (
-    <Router>
-      <div className="ui container">
-        <MenuBar />
-        <Route exact path="/" component={Home} />
+    <AuthProvider>
+      <Router>
+        <div className="ui container">
+          <MenuBar />
+          <Route exact path="/" component={Home} />
 
-        <Route exact path="/login" component={Login} />
+          <Route exact path="/login" component={Login} />
 
-        <Route exact path="/register" component={Register} />
-      </div>
-    </Router>
+          <Route exact path="/register" component={Register} />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

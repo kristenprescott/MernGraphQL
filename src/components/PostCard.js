@@ -34,10 +34,15 @@ function PostCard({
           size="mini"
           src="https://react.semantic-ui.com/images/avatar/large/molly.png"
         />
-        <Card.Header>{username}</Card.Header>
-        <Card.Meta as={Link} to={`/posts/${id}`}>
-          {moment(createdAt).fromNow(true)}
-        </Card.Meta>
+        <Card.Header>
+          {username}
+
+          <Card.Meta as={Link} to={`/posts/${id}`}>
+            {moment(createdAt).fromNow(true)}
+          </Card.Meta>
+          <Card.Content header={title} />
+        </Card.Header>
+
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Image src="https://picsum.photos/300/" />
