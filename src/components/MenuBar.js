@@ -22,7 +22,7 @@ export default function MenuBar() {
       secondary
       size="massive"
       color="red"
-      style={{ backgroundColor: "#131313" }}
+      // style={{ backgroundColor: "#131313" }}
     >
       <Menu.Item
         name="home"
@@ -30,10 +30,11 @@ export default function MenuBar() {
         onClick={handleItemClick}
         as={Link}
         to="/"
-        backgroundColor="white"
+        // backgroundColor="white"
       >
         <Icon name="home" />
-        <span style={{ color: "white" }}>Home</span>
+        {/* <h6 style={{ color: "white" }}>Home</h6> */}
+        <h6>Home</h6>
       </Menu.Item>
 
       <Menu.Menu position="right">
@@ -45,7 +46,8 @@ export default function MenuBar() {
           to="/register"
         >
           <Icon name="user plus" />
-          <span style={{ color: "white" }}>Register</span>
+          {/* <h6 style={{ color: "white" }}>Register</h6> */}
+          <h6>Register</h6>
         </Menu.Item>
         <Menu.Item
           name="login"
@@ -55,7 +57,8 @@ export default function MenuBar() {
           to="/login"
         >
           <Icon name="user" />
-          <span style={{ color: "white" }}>Login</span>
+          {/* <h6 style={{ color: "white" }}>Login</h6> */}
+          <h6>Login</h6>
         </Menu.Item>
       </Menu.Menu>
     </Menu>

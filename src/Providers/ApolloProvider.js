@@ -11,24 +11,6 @@ const httpLink = createHttpLink({
   uri: `${serverURI}`,
 });
 
-// const client = new ApolloClient({
-//   // link: authLink.concat(httpLink),
-//   link: httpLink,
-//   cache: new InMemoryCache({
-//     typePolicies: {
-//       Query: {
-//         fields: {
-//           getPosts: {
-//             merge(existing, incoming) {
-//               return incoming;
-//             },
-//           },
-//         },
-//       },
-//     },
-//   }),
-// });
-
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
@@ -36,8 +18,6 @@ const client = new ApolloClient({
 
 export default (
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </ApolloProvider>
 );

@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Grid } from "semantic-ui-react";
+import { Grid, Image } from "semantic-ui-react";
 
 import PostCard from "../components/PostCard";
 
@@ -12,7 +12,7 @@ function Home() {
 
   return (
     <Grid columns={3}>
-      <Grid.Row>
+      <Grid.Row className="page-title">
         <h1>Recent Posts</h1>
       </Grid.Row>
       <Grid.Row>
@@ -21,17 +21,7 @@ function Home() {
         ) : (
           posts &&
           posts.map((post) => (
-            <Grid.Column
-              key={post.id}
-              style={
-                {
-                  // width: "300px",
-                  // height: "300px",
-                  // border: "1px solid tomato",
-                  // marginBottom: 20,
-                }
-              }
-            >
+            <Grid.Column key={post.id} style={{ padding: "1rem" }}>
               <PostCard post={post} />
               {/* <Image src="https://picsum.photos/300/300" /> */}
             </Grid.Column>

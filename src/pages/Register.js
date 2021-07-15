@@ -8,7 +8,7 @@ export default function Register() {
         style={{
           width: "100%",
           height: "100vh",
-          backgroundColor: "pink",
+          // backgroundColor: "pink",
         }}
       ></div>
     </>

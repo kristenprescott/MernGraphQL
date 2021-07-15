@@ -25,7 +25,8 @@ function PostCard({
     console.log("comment on post.");
   };
   return (
-    <Card fluid>
+    // <Card.Group centered>
+    <Card fluid style={{ width: "100%", height: "100%" }}>
       <Card.Content>
         <Image
           floated="right"
@@ -38,10 +39,18 @@ function PostCard({
         </Card.Meta>
         <Card.Description>{body}</Card.Description>
       </Card.Content>
+      <Image src="https://picsum.photos/300/" />
+
       <Card.Content extra>
         <Button as="div" labelPosition="right" onClick={likePost}>
           <Button color="red" basic>
             <Icon name="heart" />
+
+            {/* <Icon name="thumbs up" /> */}
+            {/* <Icon name="thumbs up outline" /> */}
+
+            {/* <Icon name="thumbs down" /> */}
+            {/* <Icon name="thumbs down outline" /> */}
           </Button>
           <Label basic color="red" pointing="left">
             {likeCount}
@@ -49,7 +58,9 @@ function PostCard({
         </Button>
         <Button as="div" labelPosition="right" onClick={commentOnPost}>
           <Button color="blue" basic>
-            <Icon name="comment" />
+            {/* <Icon name="comment" /> */}
+            <Icon name="comments" />
+            {/* <Icon name="comment outline" /> */}
           </Button>
           <Label basic color="blue" pointing="left">
             {commentCount}
@@ -57,6 +68,7 @@ function PostCard({
         </Button>
       </Card.Content>
     </Card>
+    // </Card.Group>
   );
 }
 
