@@ -26,7 +26,6 @@ function PostCard({
   };
 
   return (
-    // <Card.Group centered>
     <Card fluid style={{ width: "100%", height: "100%" }}>
       <Card.Content>
         <Image
@@ -45,7 +44,20 @@ function PostCard({
 
         <Card.Description>{body}</Card.Description>
       </Card.Content>
-      <Image src="https://picsum.photos/300/" />
+      <Image src={selectedFile} />
+      <Card.Content>
+        {tags.map((tag) => (
+          <Card.Content
+            extra
+            className="tags"
+            key={tag}
+            as={Link}
+            to={`/tags/${id}`}
+          >
+            #{tag}{" "}
+          </Card.Content>
+        ))}
+      </Card.Content>
 
       <Card.Content extra>
         <Button as="div" labelPosition="right" onClick={likePost}>
@@ -74,7 +86,6 @@ function PostCard({
         </Button>
       </Card.Content>
     </Card>
-    // </Card.Group>
   );
 }
 

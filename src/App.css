@@ -140,3 +140,10 @@ select:focus {
   background-color: rgb(51, 106, 209) !important;
   border: 2px solid rgb(43, 65, 194) !important;
 }
+
+.tags {
+  font-size: 10px !important;
+  font-family: "Cabin", sans-serif !important;
+  margin: auto !important;
+  overflow-wrap: break-word !important;
+}
