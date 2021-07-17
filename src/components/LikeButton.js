@@ -4,6 +4,8 @@ import { Button, Icon, Label } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
+import InvertedPopup from "../utils/InvertedPopup";
+
 function LikeButton({ user, post: { id, likes, likeCount } }) {
   const [liked, setLiked] = useState(false);
   useEffect(() => {
@@ -39,12 +41,16 @@ function LikeButton({ user, post: { id, likes, likeCount } }) {
   );
 
   return (
-    <Button as="div" labelPosition="right" onClick={likePost}>
-      {likeButton}
-      <Label basic color="red" pointing="left">
-        {likeCount}
-      </Label>
-    </Button>
+    <>
+      <InvertedPopup content="like post">
+        <Button as="div" labelPosition="right" onClick={likePost}>
+          {likeButton}
+          <Label basic color="red" pointing="left">
+            {likeCount}
+          </Label>
+        </Button>
+      </InvertedPopup>
+    </>
   );
 }
 

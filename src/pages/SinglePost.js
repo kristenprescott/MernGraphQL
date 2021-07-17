@@ -15,6 +15,7 @@ import moment from "moment";
 
 import { AuthContext } from "../context/auth";
 import LikeButton from "../components/LikeButton";
+// TODO: make CommentButton component
 // import CommentButton from "../components/CommentButton";
 import DeleteButton from "../components/DeleteButton";
 
@@ -43,7 +44,6 @@ function SinglePost(props) {
   });
 
   function deletePostCallback() {
-    // props.history.push("/");
     window.location.href = "/";
   }
 

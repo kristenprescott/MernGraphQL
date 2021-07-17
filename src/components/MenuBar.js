@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Icon, Menu } from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
+import InvertedPopup from "../utils/InvertedPopup";
 
 export default function MenuBar() {
   const { user, logout } = useContext(AuthContext);
@@ -18,60 +19,79 @@ export default function MenuBar() {
 
   const menuBar = user ? (
     <Menu attached="top" tabular pointing secondary size="massive" color="red">
-      <Menu.Item name={user.username} as={Link} to="/">
-        <Icon name="user" />
-        <h6>{user.username}</h6>
-      </Menu.Item>
+      <InvertedPopup content="go to homepage">
+        <Menu.Item>
+          <Icon name="home" />
+          <h6>Home</h6>
+        </Menu.Item>
+      </InvertedPopup>
 
       <Menu.Menu position="right">
-        <Menu.Item as={Link} to="/newpost" name="newpost">
-          <Icon name="edit" />
-          {/* <Icon name="add" /> */}
-          <h6>New Post</h6>
-        </Menu.Item>
-      </Menu.Menu>
+        <InvertedPopup content="make a new post">
+          <Menu.Item as={Link} to="/newpost" name="newpost">
+            <Icon name="edit" />
+            {/* <Icon name="add" /> */}
+            <h6>New Post</h6>
+          </Menu.Item>
+        </InvertedPopup>
 
-      <Menu.Menu position="right">
-        <Menu.Item name="logout" onClick={logout}>
-          <Icon name="user" />
-          <h6>Logout</h6>
-        </Menu.Item>
+        {/* TODO: link to user profile once Profile component is made */}
+        <InvertedPopup content="go to your profile page">
+          <Menu.Item name={user.username} as={Link} to="/">
+            <Icon name="user" />
+            <h6>{user.username}</h6>
+          </Menu.Item>
+        </InvertedPopup>
+
+        <InvertedPopup content="logout">
+          <Menu.Item name="logout" onClick={logout}>
+            <Icon name="arrow alternate circle right" />
+            <h6>Logout</h6>
+          </Menu.Item>
+        </InvertedPopup>
       </Menu.Menu>
     </Menu>
   ) : (
     <Menu attached="top" tabular pointing secondary size="massive" color="red">
-      <Menu.Item
-        name="home"
-        active={activeItem === "home"}
-        onClick={handleItemClick}
-        as={Link}
-        to="/"
-      >
-        <Icon name="home" />
-        <h6>Home</h6>
-      </Menu.Item>
+      <InvertedPopup content="go to homepage">
+        <Menu.Item
+          name="home"
+          active={activeItem === "home"}
+          onClick={handleItemClick}
+          as={Link}
+          to="/"
+        >
+          <Icon name="home" />
+          <h6>Home</h6>
+        </Menu.Item>
+      </InvertedPopup>
 
       <Menu.Menu position="right">
-        <Menu.Item
-          name="register"
-          active={activeItem === "register"}
-          onClick={handleItemClick}
-          as={Link}
-          to="/register"
-        >
-          <Icon name="user plus" />
-          <h6>Register</h6>
-        </Menu.Item>
-        <Menu.Item
-          name="login"
-          active={activeItem === "login"}
-          onClick={handleItemClick}
-          as={Link}
-          to="/login"
-        >
-          <Icon name="user" />
-          <h6>Login</h6>
-        </Menu.Item>
+        <InvertedPopup content="">
+          <Menu.Item
+            name="register"
+            active={activeItem === "register"}
+            onClick={handleItemClick}
+            as={Link}
+            to="/register"
+          >
+            <Icon name="user plus" />
+            <h6>Register</h6>
+          </Menu.Item>
+        </InvertedPopup>
+
+        <InvertedPopup content="login">
+          <Menu.Item
+            name="login"
+            active={activeItem === "login"}
+            onClick={handleItemClick}
+            as={Link}
+            to="/login"
+          >
+            <Icon name="user" />
+            <h6>Login</h6>
+          </Menu.Item>
+        </InvertedPopup>
       </Menu.Menu>
     </Menu>
   );

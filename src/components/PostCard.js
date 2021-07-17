@@ -7,6 +7,7 @@ import { AuthContext } from "../context/auth";
 import LikeButton from "./LikeButton";
 // import CommentButton from './CommentButton';
 import DeleteButton from "./DeleteButton";
+import InvertedPopup from "../utils/InvertedPopup";
 
 function PostCard({
   post: {
@@ -28,13 +29,22 @@ function PostCard({
   return (
     <Card fluid style={{ width: "100%", height: "100%" }}>
       <Card.Content>
-        <Image
-          floated="right"
-          size="mini"
-          src="https://react.semantic-ui.com/images/avatar/large/molly.png"
-        />
+        {/* TODO: add more info to user popup */}
+        {/* TODO: make Profile component, link user profile here */}
+        <InvertedPopup content={username}>
+          <Image
+            floated="right"
+            size="mini"
+            // TODO: make user image upload functionality
+            src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+          />
+        </InvertedPopup>
+
         <Card.Header>
-          {username}{" "}
+          <InvertedPopup content={`go to ${username}'s profile`}>
+            {/* TODO: link to user profile once Profile component is made */}
+            <div style={{ cursor: "pointer" }}>{username} </div>
+          </InvertedPopup>
           <Card.Meta
             as={Link}
             to={`/posts/${id}`}
@@ -70,8 +80,8 @@ function PostCard({
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Image src={selectedFile} />
-      {/* <br /> */}
-      {/* <hr /> */}
+      <br />
+      <hr />
 
       <Card.Content extra>
         {tags.map((tag) => (
@@ -83,14 +93,18 @@ function PostCard({
 
       <Card.Content extra>
         <LikeButton user={user} post={{ id, likes, likeCount }} />
-        <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
-          <Button color="blue" basic>
-            <Icon name="comments" />
+
+        <InvertedPopup content="comment on post">
+          <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
+            <Button color="blue" basic>
+              <Icon name="comment" />
+            </Button>
+            <Label basic color="blue" pointing="left">
+              {commentCount}
+            </Label>
           </Button>
-          <Label basic color="blue" pointing="left">
-            {commentCount}
-          </Label>
-        </Button>
+        </InvertedPopup>
+
         {user && user.username === username && <DeleteButton postId={id} />}
       </Card.Content>
     </Card>
