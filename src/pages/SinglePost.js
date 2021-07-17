@@ -13,7 +13,7 @@ import DeleteButton from "../components/DeleteButton";
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
-  console.log("postId: ", postId);
+  // console.log("postId: ", postId);
 
   const { data: { getPost } = {} } = useQuery(FETCH_POST_QUERY, {
     variables: {
@@ -116,6 +116,9 @@ function SinglePost(props) {
             <Card fluid>
               {comments.map((comment) => (
                 <Card.Content key={comment.id}>
+                  {user && user.username === comment.username && (
+                    <DeleteButton postId={id} commentId={comment.id} />
+                  )}
                   <Card.Header>{comment.username}</Card.Header>
                   <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
                   <Card.Description>{comment.body}</Card.Description>

@@ -5,23 +5,27 @@ import { useMutation } from "@apollo/react-hooks";
 
 import { FETCH_POSTS_QUERY } from "../utils/graphql";
 
-function DeleteButton({ postId, callback }) {
+function DeleteButton({ postId, commentId, callback }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
-  //   const refreshPage = () => {
-  //     window.location.reload();
-  //   };
+  const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
 
-  const [deletePost] = useMutation(DELETE_POST_MUTATION, {
+  const [deletePostOrMutation] = useMutation(mutation, {
     update(proxy) {
       setConfirmOpen(false);
-      const data = proxy.readQuery({
-        query: FETCH_POSTS_QUERY,
-      });
-      data.getPosts = data.getPosts.filter((p) => p.id !== postId);
-      proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
 
-      //   refreshPage();
+      if (!commentId) {
+        const data = proxy.readQuery({
+          query: FETCH_POSTS_QUERY,
+        });
+        data.getPosts = data.getPosts.filter((p) => p.id !== postId);
+        // data.getPosts = [
+        //   data.deletePost,
+        //   ...data.getPosts.filter((p) => p.id !== postId),
+        // ];
+        proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+        console.log("delete comment data: ", data); // <<----------------- TODO: debug delete comment mutation
+      }
 
       if (callback) {
         callback();
@@ -29,6 +33,7 @@ function DeleteButton({ postId, callback }) {
     },
     variables: {
       postId,
+      commentId,
     },
   });
 
@@ -39,7 +44,6 @@ function DeleteButton({ postId, callback }) {
         color="red"
         floated="right"
         onClick={() => {
-          console.log("deletePost");
           setConfirmOpen(true);
         }}
       >
@@ -47,12 +51,10 @@ function DeleteButton({ postId, callback }) {
       </Button>
       <Confirm
         open={confirmOpen}
-        // when user clicks 'no':
         onCancel={() => {
           setConfirmOpen(false);
         }}
-        // when user clicks 'yes':
-        onConfirm={deletePost}
+        onConfirm={deletePostOrMutation}
       />
     </>
   );
@@ -61,6 +63,21 @@ function DeleteButton({ postId, callback }) {
 const DELETE_POST_MUTATION = gql`
   mutation deletePost($postId: ID!) {
     deletePost(postId: $postId)
+  }
+`;
+
+const DELETE_COMMENT_MUTATION = gql`
+  mutation deleteComment($postId: ID!, $commentId: ID!) {
+    deleteComment(postId: $postId, commentId: $commentId) {
+      id
+      commentCount
+      comments {
+        id
+        username
+        body
+        createdAt
+      }
+    }
   }
 `;
 
