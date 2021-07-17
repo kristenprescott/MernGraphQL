@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Icon, Confirm } from "semantic-ui-react";
-import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 import { FETCH_POSTS_QUERY } from "../utils/graphql";
 import InvertedPopup from "../utils/InvertedPopup";

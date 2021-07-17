@@ -4,6 +4,8 @@ import { Button, Icon, Label } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
+import InvertedPopup from "../utils/InvertedPopup";
+
 function CommentButton({ user, post: { id, comments, commentCount } }) {
   const [commented, setCommented] = useState(false);
   useEffect(() => {
@@ -39,25 +41,30 @@ function CommentButton({ user, post: { id, comments, commentCount } }) {
   );
 
   return (
-    <Button as="div" labelPosition="right" onClick={commentPost}>
-      {commentButton}
-      <Label basic color="blue" pointing="left">
-        {commentCount}
-      </Label>
-    </Button>
+    <InvertedPopup content="comment on post">
+      <Button as="div" labelPosition="right" onClick={commentPost}>
+        {commentButton}
+        <Label basic color="blue" pointing="left">
+          {commentCount}
+        </Label>
+      </Button>
+    </InvertedPopup>
   );
 }
 
-const COMMENT_POST_MUTATION = gql`
-  mutation commentPost($postId: ID!) {
-    commentPost(postId: $postId) {
+const SUBMIT_COMMENT_MUTATION = gql`
+  mutation($postId: String!, $body: String!) {
+    createComment(postId: $postId, body: $body) {
       id
+      username
+      commentCount
       comments {
         id
         username
         body
+        createdAt
       }
-      commentCount
+      createdAt
     }
   }
 `;

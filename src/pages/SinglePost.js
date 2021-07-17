@@ -18,11 +18,14 @@ import LikeButton from "../components/LikeButton";
 // TODO: make CommentButton component
 // import CommentButton from "../components/CommentButton";
 import DeleteButton from "../components/DeleteButton";
+import InvertedPopup from "../utils/InvertedPopup";
 
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
-  const commentInputRef = useRef(null);
+  // const commentInputUnfocusRef = useRef(null);
+  // const commentInputFocusRef = useRef(null);
+  const commentInputFocusRef = useRef(null);
 
   const [comment, setComment] = useState("");
 
@@ -32,10 +35,43 @@ function SinglePost(props) {
     },
   });
 
+  // // https://www.davedrinks.coffee/how-do-i-use-two-react-refs/
+  // const mergeRefs = (...refs) => {
+  //   const filteredRefs = refs.filter(Boolean);
+  //   if (!filteredRefs.length) return null;
+  //   if (filteredRefs.length === 0) return filteredRefs[0];
+  //   return (inst) => {
+  //     for (const ref of filteredRefs) {
+  //       if (typeof ref === "function") {
+  //         ref(inst);
+  //       } else if (ref) {
+  //         ref.current = inst;
+  //       }
+  //     }
+  //   };
+  // };
+
+  // Check which element is currently focused: console.log(document.activeElement);
+
+  // TODO: fix this page refresh here too
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
+  const inputBlur = () => {
+    commentInputFocusRef.current.blur();
+  };
+
+  const inputFocus = () => {
+    commentInputFocusRef.current.focus();
+  };
+
   const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
     update() {
       setComment("");
-      commentInputRef.current.blur();
+      // commentInputUnfocusRef.current.blur();
+      inputBlur();
+      refreshPage();
     },
     variables: {
       postId,
@@ -113,20 +149,26 @@ function SinglePost(props) {
 
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likeCount, likes }} />
-                <Button
-                  as="div"
-                  labelPosition="right"
-                  onClick={() => {
-                    console.log("comment on post");
-                  }}
-                >
-                  <Button basic color="blue">
-                    <Icon name="comments" />
+
+                <InvertedPopup content="comment on post">
+                  <Button
+                    as="div"
+                    labelPosition="right"
+                    onClick={() => {
+                      // focus on comment input
+                      inputFocus();
+
+                      console.log("comment on post");
+                    }}
+                  >
+                    <Button basic color="blue">
+                      <Icon name="comments" />
+                    </Button>
+                    <Label basic color="blue" pointing="left">
+                      {commentCount}
+                    </Label>
                   </Button>
-                  <Label basic color="blue" pointing="left">
-                    {commentCount}
-                  </Label>
-                </Button>
+                </InvertedPopup>
                 {user && user.username === username && (
                   <DeleteButton postId={id} callback={deletePostCallback} />
                 )}
@@ -145,8 +187,10 @@ function SinglePost(props) {
                         name="comment"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
-                        ref={commentInputRef}
+                        // ref={commentInputUnfocusRef /*, commentInputFocusRef */}
+                        ref={commentInputFocusRef}
                       />
+
                       <button
                         type="submit"
                         className="ui button teal"

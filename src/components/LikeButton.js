@@ -16,6 +16,7 @@ function LikeButton({ user, post: { id, likes, likeCount } }) {
     }
   }, [user, likes]);
 
+  // TODO: replace refresh page with fix for like/unlike instant feedback
   const refreshPage = () => {
     window.location.reload();
   };
@@ -42,7 +43,7 @@ function LikeButton({ user, post: { id, likes, likeCount } }) {
 
   return (
     <>
-      <InvertedPopup content="like post">
+      <InvertedPopup content={liked ? "unlike post" : "like post"}>
         <Button as="div" labelPosition="right" onClick={likePost}>
           {likeButton}
           <Label basic color="red" pointing="left">
