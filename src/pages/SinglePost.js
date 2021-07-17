@@ -1,8 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
-import { Card, Grid, Image, Button, Icon, Label } from "semantic-ui-react";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import {
+  Card,
+  Grid,
+  Image,
+  Button,
+  Icon,
+  Label,
+  Form,
+} from "semantic-ui-react";
 import moment from "moment";
 
 import { AuthContext } from "../context/auth";
@@ -14,10 +22,21 @@ function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
   // console.log("postId: ", postId);
+  const [comment, setComment] = useState("");
 
   const { data: { getPost } = {} } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId,
+    },
+  });
+
+  const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
+    update() {
+      setComment("");
+    },
+    variables: {
+      postId,
+      body: comment,
     },
   });
 
@@ -61,13 +80,13 @@ function SinglePost(props) {
                 <Card.Header>
                   {username}{" "}
                   <Card.Meta>{moment(createdAt).fromNow()} ago</Card.Meta>
-                  {/* <br /> */}
-                  {/* <br /> */}
-                  {/* <hr /> */}
+                  <br />
+                  <br />
+                  <hr />
                   <h3 style={{ margin: "0 auto", textAlign: "center" }}>
                     <Card.Content header={title} />
                   </h3>
-                  {/* <hr /> */}
+                  <hr />
                 </Card.Header>
 
                 <Card.Description>{body}</Card.Description>
@@ -88,7 +107,7 @@ function SinglePost(props) {
                 ))}
               </Card.Content>
 
-              {/* <hr /> */}
+              <hr />
 
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likeCount, likes }} />
@@ -112,7 +131,33 @@ function SinglePost(props) {
               </Card.Content>
             </Card>
 
-            {/* <---------------------------------> */}
+            {user && (
+              <Card fluid>
+                <Card.Content>
+                  <h3>Post a comment:</h3>
+                  <Form>
+                    <div className="ui action input fluid">
+                      <input
+                        type="text"
+                        placeholder="comment..."
+                        name="comment"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                      />
+                      <button
+                        type="submit"
+                        className="ui button teal"
+                        disabled={comment.trim() === ""}
+                        onClick={submitComment}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </Form>
+                </Card.Content>
+              </Card>
+            )}
+
             <Card fluid>
               {comments.map((comment) => (
                 <Card.Content key={comment.id}>
@@ -143,6 +188,23 @@ function SinglePost(props) {
 
   return postMarkup;
 }
+
+const SUBMIT_COMMENT_MUTATION = gql`
+  mutation($postId: String!, $body: String!) {
+    createComment(postId: $postId, body: $body) {
+      id
+      username
+      commentCount
+      comments {
+        id
+        username
+        body
+        createdAt
+      }
+      createdAt
+    }
+  }
+`;
 
 const FETCH_POST_QUERY = gql`
   query($postId: ID!) {
