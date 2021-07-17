@@ -31,47 +31,61 @@ function PostForm() {
   });
 
   function createPostCallback() {
-    createPost();
+    createPost({ variables: { values } });
   }
 
+  // if (error) {
+  //   Alert.alert("Error", "Your post cannot be empty: " + concatErrors(error));
+  // }
+
   return (
-    <Form onSubmit={onSubmit}>
-      <h2>Create a Post: </h2>
-      <Form.Field>
-        <Form.Input
-          placeholder="title"
-          name="title"
-          onChange={onChange}
-          value={values.title}
-          //   error={err}
-        />
-        <Form.Input
-          style={{ height: "250px" }}
-          placeholder="body"
-          name="body"
-          onChange={onChange}
-          value={values.body}
-          //   error={err}
-        />
-        <Form.Input
-          placeholder="tags"
-          name="tags"
-          onChange={onChange}
-          value={values.tags}
-          //   error={err}
-        />
-        <Form.Input
-          placeholder="selectedFile"
-          name="selectedFile"
-          onChange={onChange}
-          value={values.selectedFile}
-          //   error={err}
-        />
-        <Button type="submit" color="teal">
-          Submit
-        </Button>
-      </Form.Field>
-    </Form>
+    <>
+      <Form onSubmit={onSubmit}>
+        <h2>Create a Post: </h2>
+        <Form.Field>
+          <Form.Input
+            placeholder="title"
+            name="title"
+            onChange={onChange}
+            value={values.title}
+            error={error ? true : false}
+          />
+          <Form.Input
+            style={{ height: "250px" }}
+            placeholder="body"
+            name="body"
+            onChange={onChange}
+            value={values.body}
+            error={error ? true : false}
+          />
+          <Form.Input
+            placeholder="tags"
+            name="tags"
+            onChange={onChange}
+            value={values.tags}
+            error={error ? true : false}
+          />
+          <Form.Input
+            placeholder="selectedFile"
+            name="selectedFile"
+            onChange={onChange}
+            value={values.selectedFile}
+            error={error ? true : false}
+          />
+          <Button type="submit" color="teal">
+            Submit
+          </Button>
+        </Form.Field>
+      </Form>
+
+      {error && (
+        <div className="ui error message">
+          <ui className="list">
+            <li>{error.graphQLErrors[0].message}</li>
+          </ui>
+        </div>
+      )}
+    </>
   );
 }
 
