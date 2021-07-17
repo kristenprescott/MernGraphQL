@@ -24,6 +24,14 @@ export default function MenuBar() {
       </Menu.Item>
 
       <Menu.Menu position="right">
+        <Menu.Item as={Link} to="/newpost" name="newpost">
+          <Icon name="edit" />
+          {/* <Icon name="add" /> */}
+          <h6>New Post</h6>
+        </Menu.Item>
+      </Menu.Menu>
+
+      <Menu.Menu position="right">
         <Menu.Item name="logout" onClick={logout}>
           <Icon name="user" />
           <h6>Logout</h6>

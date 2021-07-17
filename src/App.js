@@ -11,6 +11,7 @@ import { AuthRoute } from "./utils/AuthRoute";
 
 import MenuBar from "./components/MenuBar";
 import Home from "./pages/Home";
+import PostForm from "./components/PostForm";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -22,6 +23,8 @@ function App() {
           <div className="ui container">
             <MenuBar />
             <Route exact path="/" component={Home} />
+
+            <Route exact path="/newpost" component={PostForm} />
 
             <AuthRoute exact path="/login" component={Login} />
             {/* <Route exact path="/login" component={Login} /> */}

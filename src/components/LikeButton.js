@@ -14,17 +14,21 @@ function LikeButton({ user, post: { id, likes, likeCount } }) {
     }
   }, [user, likes]);
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const [likePost] = useMutation(LIKE_POST_MUTATION, {
     variables: { postId: id },
   });
 
   const likeButton = user ? (
     liked ? (
-      <Button color="red">
+      <Button onClick={refreshPage} color="red">
         <Icon name="heart" />
       </Button>
     ) : (
-      <Button color="red" basic>
+      <Button onClick={refreshPage} color="red" basic>
         <Icon name="heart" />
       </Button>
     )
