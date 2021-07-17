@@ -22,7 +22,8 @@ function SinglePost(props) {
   });
 
   function deletePostCallback() {
-    props.history.push("/");
+    // props.history.push("/");
+    window.location.href = "/";
   }
 
   let postMarkup;
