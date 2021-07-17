@@ -4,6 +4,7 @@ import { Card, Icon, Label, Image, Button } from "semantic-ui-react";
 import moment from "moment";
 
 import { AuthContext } from "../context/auth";
+import LikeButton from "./LikeButton";
 
 function PostCard({
   post: {
@@ -22,10 +23,6 @@ function PostCard({
 }) {
   const { user } = useContext(AuthContext);
 
-  function likePost() {
-    console.log("like post");
-  }
-
   return (
     <Card fluid style={{ width: "100%", height: "100%" }}>
       <Card.Content>
@@ -35,47 +32,36 @@ function PostCard({
           src="https://react.semantic-ui.com/images/avatar/large/molly.png"
         />
         <Card.Header>
-          {username}
-
+          {username}{" "}
           <Card.Meta as={Link} to={`/posts/${id}`}>
-            {moment(createdAt).fromNow(true)}
+            {moment(createdAt).fromNow(true)} ago
           </Card.Meta>
-          <Card.Content header={title} />
+          <br />
+          <br />
+          <hr />
+          <h3 style={{ margin: "0 auto", textAlign: "center" }}>
+            <Card.Content header={title} />
+          </h3>
+          <hr />
         </Card.Header>
 
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Image src={selectedFile} />
-      <Card.Content>
+      {/* <br /> */}
+      {/* <hr /> */}
+
+      <Card.Content extra>
         {tags.map((tag) => (
-          <Card.Content
-            extra
-            className="tags"
-            key={tag}
-            as={Link}
-            to={`/tags/${id}`}
-          >
+          <Card.Content className="tags" key={tag} as={Link} to={`/tags/${id}`}>
             #{tag}{" "}
           </Card.Content>
         ))}
       </Card.Content>
 
       <Card.Content extra>
-        <Button as="div" labelPosition="right" onClick={likePost}>
-          <Button color="red" basic>
-            <Icon name="heart" />
-
-            {/* <Icon name="thumbs up" /> */}
-            {/* <Icon name="thumbs up outline" /> */}
-
-            {/* <Icon name="thumbs down" /> */}
-            {/* <Icon name="thumbs down outline" /> */}
-          </Button>
-          <Label basic color="red" pointing="left">
-            {likeCount}
-          </Label>
-        </Button>
-        <Button as="div" labelPosition="right" as={Link} to={`/posts/${id}`}>
+        <LikeButton user={user} post={{ id, likes, likeCount }} />
+        <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
           <Button color="blue" basic>
             <Icon name="comments" />
           </Button>
