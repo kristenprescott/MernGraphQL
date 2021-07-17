@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
 import { useForm } from "../utils/hooks";
-// import { FETCH_POSTS_QUERY } from "../utils/graphql";
+import { FETCH_POSTS_QUERY } from "../utils/graphql";
 
 function PostForm() {
   const { values, onChange, onSubmit } = useForm(createPostCallback, {
@@ -16,41 +16,23 @@ function PostForm() {
 
   const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
     variables: values,
-    update(_, result) {
-      console.log("create post result: ", result);
+    update(proxy, result) {
+      const data = proxy.readQuery({
+        query: FETCH_POSTS_QUERY,
+      });
+      // console.log("data", data);
+      data.getPosts = [result.data.createPost, ...data.getPosts];
+      proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
       values.title = "";
       values.body = "";
       values.tags = "";
       values.selectedFile = "";
     },
-    //   update(proxy, result) {
-    //     const data = proxy.readQuery({
-    //       query: FETCH_POSTS_QUERY,
-    //     });
-    //     data.getPosts = [result.data.createPost, ...data.getPosts];
-    //     proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
-    //     values.body = "";
-    //   },
   });
 
   function createPostCallback() {
     createPost();
   }
-
-  //   const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
-  //     variables: values,
-  //     update(_, result) {
-  //       console.log("res: ", result);
-  //       values.title = "";
-  //       values.body = "";
-  //       values.tags = "";
-  //       values.selectedFile = "";
-  //     },
-  //   });
-
-  //   function createPostCallback() {
-  //     createPost();
-  //   }
 
   return (
     <Form onSubmit={onSubmit}>

@@ -16,7 +16,7 @@ const httpLink = createHttpLink({
 // const authLink = setContext((req, pre) => {
 const authLink = setContext(() => {
   const token = localStorage.getItem("jwtoken");
-  console.log("authLink token: ", token);
+  // console.log("authLink token: ", token);
 
   // set jwtoken as an Authorization header
   //    should merge the existing headers of the req w this headers object we gave
@@ -28,8 +28,8 @@ const authLink = setContext(() => {
 });
 
 const client = new ApolloClient({
-  // concat the authLink headers to the existing httpLink:
   link: authLink.concat(httpLink),
+  // cache: new InMemoryCache({}),
   cache: new InMemoryCache(),
 });
 

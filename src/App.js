@@ -23,11 +23,11 @@ function App() {
             <MenuBar />
             <Route exact path="/" component={Home} />
 
-            {/* <AuthRoute exact path="/login" component={Login} /> */}
-            <Route exact path="/login" component={Login} />
+            <AuthRoute exact path="/login" component={Login} />
+            {/* <Route exact path="/login" component={Login} /> */}
 
-            {/* <AuthRoute exact path="/register" component={Register} /> */}
-            <Route exact path="/register" component={Register} />
+            <AuthRoute exact path="/register" component={Register} />
+            {/* <Route exact path="/register" component={Register} /> */}
           </div>
         </Container>
       </Router>

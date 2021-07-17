@@ -10,13 +10,6 @@ export const useForm = (callback, initialState = {}) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    // setValues({
-    //   username: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // });
-
     callback();
   };
 

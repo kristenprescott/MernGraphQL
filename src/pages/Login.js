@@ -33,19 +33,6 @@ function Login(props) {
     variables: values,
   });
 
-  // const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-  //   update(_, result) {
-  //     console.log("res: ", result);
-  //     console.log("login data: ", result.data.login);
-  //     context.login(result.data.login);
-  //     props.history.push("/");
-  //   },
-  //   onError(err) {
-  //     setErrors(err.graphQLErrors[0].extensions.errors);
-  //   },
-  //   variables: values,
-  // });
-
   function loginUserCallback() {
     loginUser();
   }
