@@ -7,23 +7,27 @@ import moment from "moment";
 
 import { AuthContext } from "../context/auth";
 import LikeButton from "../components/LikeButton";
+// import CommentButton from "../components/CommentButton";
+import DeleteButton from "../components/DeleteButton";
 
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
   console.log("postId: ", postId);
 
-  const {
-    data: { getPost },
-  } = useQuery(FETCH_POST_QUERY, {
+  const { data: { getPost } = {} } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId,
     },
   });
 
+  function deletePostCallback() {
+    props.history.push("/");
+  }
+
   let postMarkup;
   if (!getPost) {
-    postMarkup = <p>Loading post...</p>;
+    postMarkup = <p>Loading post..</p>;
   } else {
     const {
       id,
@@ -42,26 +46,27 @@ function SinglePost(props) {
     postMarkup = (
       <Grid>
         <Grid.Row>
-          <Grid.Column width={2}>
+          <Grid.Column width={3}>
             <Image
               src="https://react.semantic-ui.com/images/avatar/large/molly.png"
               size="small"
               float="right"
             />
           </Grid.Column>
-          <Grid.Column width={10}>
+
+          <Grid.Column width={9}>
             <Card fluid>
               <Card.Content>
                 <Card.Header>
                   {username}{" "}
                   <Card.Meta>{moment(createdAt).fromNow()} ago</Card.Meta>
-                  <br />
-                  <br />
-                  <hr />
+                  {/* <br /> */}
+                  {/* <br /> */}
+                  {/* <hr /> */}
                   <h3 style={{ margin: "0 auto", textAlign: "center" }}>
                     <Card.Content header={title} />
                   </h3>
-                  <hr />
+                  {/* <hr /> */}
                 </Card.Header>
 
                 <Card.Description>{body}</Card.Description>
@@ -82,7 +87,7 @@ function SinglePost(props) {
                 ))}
               </Card.Content>
 
-              <hr />
+              {/* <hr /> */}
 
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likeCount, likes }} />
@@ -100,39 +105,28 @@ function SinglePost(props) {
                     {commentCount}
                   </Label>
                 </Button>
-              </Card.Content>
-
-              {/* <Card.Content extra>
-                <LikeButton user={user} post={{ id, likes, likeCount }} />
-                <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
-                  <Button color="blue" basic>
-                    <Icon name="comments" />
-                  </Button>
-                  <Label basic color="blue" pointing="left">
-                    {commentCount}
-                  </Label>
-                </Button>
                 {user && user.username === username && (
-                  <Button
-                    as="div"
-                    color="red"
-                    floated="right"
-                    onClick={() => {
-                      console.log("deletePost");
-                    }}
-                  >
-                    <Icon name="trash" style={{ margin: 0 }} />
-                  </Button>
+                  <DeleteButton postId={id} callback={deletePostCallback} />
                 )}
-              </Card.Content> */}
+              </Card.Content>
             </Card>
           </Grid.Column>
+
+          <Grid.Column
+            width={3}
+            style={{
+              height: "100%",
+              border: "1px solid gainsboro",
+              borderTop: "none",
+              marginLeft: "5%",
+            }}
+          ></Grid.Column>
         </Grid.Row>
       </Grid>
     );
   }
 
-  return <>{postMarkup}</>;
+  return postMarkup;
 }
 
 const FETCH_POST_QUERY = gql`
@@ -144,11 +138,10 @@ const FETCH_POST_QUERY = gql`
       body
       tags
       selectedFile
+      username
       likeCount
       likes {
-        id
         username
-        createdAt
       }
       commentCount
       comments {

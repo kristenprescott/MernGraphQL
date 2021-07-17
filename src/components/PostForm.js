@@ -22,7 +22,14 @@ function PostForm() {
       });
       // console.log("data", data);
       data.getPosts = [result.data.createPost, ...data.getPosts];
+      // TODO: check out this for updating after createPost (probs around 4:06):
       proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+      // proxy.writeQuery({
+      //   query: FETCH_POSTS_QUERY,
+      //   data: {
+      //     getPosts: [result.data.createPost, ...data.getPosts],
+      //   },
+      // });
       values.title = "";
       values.body = "";
       values.tags = "";

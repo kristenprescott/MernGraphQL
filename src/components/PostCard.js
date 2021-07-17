@@ -5,6 +5,8 @@ import moment from "moment";
 
 import { AuthContext } from "../context/auth";
 import LikeButton from "./LikeButton";
+// import CommentButton from './CommentButton';
+import DeleteButton from "./DeleteButton";
 
 function PostCard({
   post: {
@@ -33,15 +35,35 @@ function PostCard({
         />
         <Card.Header>
           {username}{" "}
-          <Card.Meta as={Link} to={`/posts/${id}`}>
+          <Card.Meta
+            as={Link}
+            to={`/posts/${id}`}
+            onClick={() => {
+              console.log("postId: ", `${id}`);
+            }}
+          >
             {moment(createdAt).fromNow(true)} ago
           </Card.Meta>
           <br />
           <br />
           <hr />
-          <h3 style={{ margin: "0 auto", textAlign: "center" }}>
-            <Card.Content header={title} />
-          </h3>
+          <Card.Content>
+            <Card.Header>
+              {" "}
+              <h3
+                onClick={() => {
+                  window.location.href = `/posts/${id}`;
+                }}
+                style={{
+                  cursor: "pointer",
+                  margin: "0 auto",
+                  textAlign: "center",
+                }}
+              >
+                {title}
+              </h3>
+            </Card.Header>
+          </Card.Content>
           <hr />
         </Card.Header>
 
@@ -69,18 +91,7 @@ function PostCard({
             {commentCount}
           </Label>
         </Button>
-        {user && user.username === username && (
-          <Button
-            as="div"
-            color="red"
-            floated="right"
-            onClick={() => {
-              console.log("deletePost");
-            }}
-          >
-            <Icon name="trash" style={{ margin: 0 }} />
-          </Button>
-        )}
+        {user && user.username === username && <DeleteButton postId={id} />}
       </Card.Content>
     </Card>
   );

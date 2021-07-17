@@ -33,7 +33,7 @@ function App() {
             <AuthRoute exact path="/register" component={Register} />
             {/* <Route exact path="/register" component={Register} /> */}
 
-            <Route exact path="posts/:postId" component={SinglePost} />
+            <Route path="/posts/:postId" component={SinglePost} />
           </div>
         </Container>
       </Router>
