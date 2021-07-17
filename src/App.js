@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import PostForm from "./components/PostForm";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import SinglePost from "./pages/SinglePost";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
 
             <AuthRoute exact path="/register" component={Register} />
             {/* <Route exact path="/register" component={Register} /> */}
+
+            <Route exact path="posts/:postId" component={SinglePost} />
           </div>
         </Container>
       </Router>
