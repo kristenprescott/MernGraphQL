@@ -1,28 +1,56 @@
+import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
 import { useForm } from "../utils/hooks";
+// import { FETCH_POSTS_QUERY } from "../utils/graphql";
 
 function PostForm() {
   const { values, onChange, onSubmit } = useForm(createPostCallback, {
+    title: "",
     body: "",
+    tags: [],
+    selectedFile: "",
   });
 
   const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
     variables: values,
     update(_, result) {
-      console.log("res: ", result);
+      console.log("create post result: ", result);
       values.title = "";
       values.body = "";
       values.tags = "";
       values.selectedFile = "";
     },
+    //   update(proxy, result) {
+    //     const data = proxy.readQuery({
+    //       query: FETCH_POSTS_QUERY,
+    //     });
+    //     data.getPosts = [result.data.createPost, ...data.getPosts];
+    //     proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+    //     values.body = "";
+    //   },
   });
 
   function createPostCallback() {
     createPost();
   }
+
+  //   const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
+  //     variables: values,
+  //     update(_, result) {
+  //       console.log("res: ", result);
+  //       values.title = "";
+  //       values.body = "";
+  //       values.tags = "";
+  //       values.selectedFile = "";
+  //     },
+  //   });
+
+  //   function createPostCallback() {
+  //     createPost();
+  //   }
 
   return (
     <Form onSubmit={onSubmit}>
@@ -54,7 +82,7 @@ function PostForm() {
           placeholder="selectedFile"
           name="selectedFile"
           onChange={onChange}
-          value={values.selectedTag}
+          value={values.selectedFile}
           //   error={err}
         />
         <Button type="submit" color="teal">
@@ -66,8 +94,18 @@ function PostForm() {
 }
 
 const CREATE_POST_MUTATION = gql`
-  mutation createPost($body: String!) {
-    createPost(body: $body) {
+  mutation createPost(
+    $title: String!
+    $body: String!
+    $tags: [String]
+    $selectedFile: String!
+  ) {
+    createPost(
+      title: $title
+      body: $body
+      tags: $tags
+      selectedFile: $selectedFile
+    ) {
       id
       title
       username

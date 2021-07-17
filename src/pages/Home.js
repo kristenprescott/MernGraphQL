@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Grid, Image } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
 import PostCard from "../components/PostCard";
@@ -30,9 +30,8 @@ function Home() {
         ) : (
           posts &&
           posts.map((post) => (
-            <Grid.Column fullWidth key={post.id} style={{ padding: "1rem" }}>
+            <Grid.Column key={post.id} style={{ padding: "1rem" }}>
               <PostCard post={post} />
-              {/* <Image src="https://picsum.photos/300/300" /> */}
             </Grid.Column>
           ))
         )}
