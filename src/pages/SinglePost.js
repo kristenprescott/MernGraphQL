@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
@@ -21,7 +21,8 @@ import DeleteButton from "../components/DeleteButton";
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
-  // console.log("postId: ", postId);
+  const commentInputRef = useRef(null);
+
   const [comment, setComment] = useState("");
 
   const { data: { getPost } = {} } = useQuery(FETCH_POST_QUERY, {
@@ -33,6 +34,7 @@ function SinglePost(props) {
   const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
     update() {
       setComment("");
+      commentInputRef.current.blur();
     },
     variables: {
       postId,
@@ -143,6 +145,7 @@ function SinglePost(props) {
                         name="comment"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
+                        ref={commentInputRef}
                       />
                       <button
                         type="submit"
