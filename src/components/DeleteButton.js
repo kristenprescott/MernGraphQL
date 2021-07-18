@@ -14,23 +14,26 @@ function DeleteButton({ postId, commentId, callback }) {
   const [deletePostOrMutation] = useMutation(mutation, {
     update(proxy) {
       setConfirmOpen(false);
-
       if (!commentId) {
         const data = proxy.readQuery({
           query: FETCH_POSTS_QUERY,
         });
         data.getPosts = data.getPosts.filter((p) => p.id !== postId);
+
         // data.getPosts = [
         //   data.deletePost,
         //   ...data.getPosts.filter((p) => p.id !== postId),
         // ];
+
+        // proxy.writeQuery({
+        //   query: FETCH_POSTS_QUERY,
+        //   data: { getPosts: data.getPosts.filter((p) => p.id !== postId) },
+        // });
         proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
         console.log("delete comment data: ", data); // <<----------------- TODO: debug delete comment mutation
       }
 
-      if (callback) {
-        callback();
-      }
+      if (callback) callback();
     },
     variables: {
       postId,

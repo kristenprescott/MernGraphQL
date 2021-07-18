@@ -20,7 +20,7 @@ function Home() {
       </Grid.Row>
       <Grid.Row>
         {user && (
-          <Grid.Column>
+          <Grid.Column style={{ display: "none" }}>
             <PostForm />
           </Grid.Column>
         )}
