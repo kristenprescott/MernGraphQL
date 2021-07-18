@@ -4,7 +4,7 @@ import { Grid, Transition } from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
 import PostCard from "../components/PostCard";
-// import PostForm from "../components/PostForm";
+import PostForm from "../components/PostForm";
 import { FETCH_POSTS_QUERY } from "../utils/graphql";
 
 function Home() {
@@ -19,11 +19,11 @@ function Home() {
         <h1>Recent Posts</h1>
       </Grid.Row>
       <Grid.Row>
-        {/* {user && (
+        {user && (
           <Grid.Column>
             <PostForm />
           </Grid.Column>
-        )} */}
+        )}
         {loading ? (
           <h1>Loading posts...</h1>
         ) : (

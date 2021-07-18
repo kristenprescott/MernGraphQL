@@ -5,22 +5,19 @@ import { Icon, Menu } from "semantic-ui-react";
 import { AuthContext } from "../context/auth";
 import InvertedPopup from "../utils/InvertedPopup";
 
-export default function MenuBar() {
+function MenuBar() {
   const { user, logout } = useContext(AuthContext);
   const pathname = window.location.pathname;
 
   const path = pathname === "/" ? "home" : pathname.substr(1);
   const [activeItem, setActiveItem] = useState(path);
 
-  const handleItemClick = (e, { name }) => {
-    console.log("target", e.target.value);
-    setActiveItem(name);
-  };
+  const handleItemClick = (e, { name }) => setActiveItem(name);
 
   const menuBar = user ? (
     <Menu attached="top" tabular pointing secondary size="massive" color="red">
       <InvertedPopup content="go to homepage">
-        <Menu.Item>
+        <Menu.Item as={Link} to="/">
           <Icon name="home" />
           <h6>Home</h6>
         </Menu.Item>
@@ -28,9 +25,16 @@ export default function MenuBar() {
 
       <Menu.Menu position="right">
         <InvertedPopup content="make a new post">
-          <Menu.Item as={Link} to="/newpost" name="newpost">
+          <Menu.Item
+            name="newpost"
+            // onClick={() => {
+            //   window.location.href = "/newpost";
+            // }}
+            as={Link}
+            to="/newpost"
+            name="newpost"
+          >
             <Icon name="edit" />
-            {/* <Icon name="add" /> */}
             <h6>New Post</h6>
           </Menu.Item>
         </InvertedPopup>
@@ -98,3 +102,5 @@ export default function MenuBar() {
 
   return menuBar;
 }
+
+export default MenuBar;

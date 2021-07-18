@@ -1,15 +1,13 @@
-import { useContext, useState } from "react";
-import { Form, Button } from "semantic-ui-react";
+import React, { useContext, useState } from "react";
+import { Button, Form } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 
 import { AuthContext } from "../context/auth";
-
 import { useForm } from "../utils/hooks";
 
 function Login(props) {
   const context = useContext(AuthContext);
-
   const [errors, setErrors] = useState({});
 
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
@@ -18,12 +16,7 @@ function Login(props) {
   });
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    // update(_, result) {
-    //  destructured data from result^^
-    //  destructured login from data
-    //  gave login an alias: userData
     update(_, { data: { login: userData } }) {
-      console.log("user login data: ", userData);
       context.login(userData);
       props.history.push("/");
     },
@@ -43,21 +36,21 @@ function Login(props) {
         <h1 className="form-h1">Login</h1>
         <Form.Input
           label="Username"
-          placeholder="username"
+          placeholder="Enter username..."
           name="username"
+          type="text"
           value={values.username}
           error={errors.username ? true : false}
           onChange={onChange}
-          type="text"
         />
         <Form.Input
           label="Password"
-          placeholder="password"
+          placeholder="Enter password..."
           name="password"
+          type="password"
           value={values.password}
           error={errors.password ? true : false}
           onChange={onChange}
-          type="password"
         />{" "}
         <div className="btn-wrapper login-btn-wrapper">
           <Button className="btn login-btn" type="submit" primary>

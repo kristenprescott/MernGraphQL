@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const useForm = (callback, initialState = {}) => {
   const [values, setValues] = useState(initialState);
@@ -6,10 +6,6 @@ export const useForm = (callback, initialState = {}) => {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-
-  // const refreshPage = () => {
-  //   window.location.reload();
-  // };
 
   const redirectHome = () => {
     window.location.href = "/";
@@ -21,7 +17,6 @@ export const useForm = (callback, initialState = {}) => {
     callback();
 
     redirectHome();
-    // refreshPage();
   };
 
   return {

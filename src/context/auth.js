@@ -43,23 +43,20 @@ function authReducer(state, action) {
 }
 
 function AuthProvider(props) {
-  // removed deconstructed user state to its own variable at the top (to use in login/logout)
-  // const [state, dispatch] = useReducer(authReducer, { user: null });
   const [state, dispatch] = useReducer(authReducer, initialState);
-  const login = (userData) => {
-    // add user token to localStorage:
+
+  function login(userData) {
     localStorage.setItem("jwtoken", userData.token);
     dispatch({
       type: "LOGIN",
       payload: userData,
     });
-  };
+  }
 
-  const logout = () => {
-    // remove user token to localStorage:
+  function logout() {
     localStorage.removeItem("jwtoken");
     dispatch({ type: "LOGOUT" });
-  };
+  }
 
   return (
     <AuthContext.Provider
