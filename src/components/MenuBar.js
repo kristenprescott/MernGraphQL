@@ -12,9 +12,13 @@ function MenuBar() {
   const path = pathname === "/" ? "home" : pathname.substr(1);
   const [activeItem, setActiveItem] = useState(path);
 
-  const handleItemClick = (e, { name }) => setActiveItem(name);
+  const handleItemClick = (e, { name }) => {
+    setActiveItem(name);
+  };
 
+  // return (
   const menuBar = user ? (
+    // <>
     <Menu attached="top" tabular pointing secondary size="massive" color="red">
       <InvertedPopup content="go to homepage">
         <Menu.Item as={Link} to="/">
@@ -25,27 +29,21 @@ function MenuBar() {
 
       <Menu.Menu position="right">
         <InvertedPopup content="make a new post">
-          <Menu.Item
-            name="newpost"
-            // onClick={() => {
-            //   window.location.href = "/newpost";
-            // }}
-            as={Link}
-            to="/newpost"
-            name="newpost"
-          >
+          <Menu.Item name="newpost" as={Link} to="/newpost" name="newpost">
             <Icon name="edit" />
             <h6>New Post</h6>
           </Menu.Item>
         </InvertedPopup>
 
         {/* TODO: link to user profile once Profile component is made */}
-        <InvertedPopup content="go to your profile page">
-          <Menu.Item name={user.username} as={Link} to="/">
-            <Icon name="user" />
-            <h6>{user.username}</h6>
-          </Menu.Item>
-        </InvertedPopup>
+        {user && (
+          <InvertedPopup content="go to your profile page">
+            <Menu.Item name={user.username} as={Link} to="/">
+              <Icon name="user" />
+              <h6>{user.username}</h6>
+            </Menu.Item>
+          </InvertedPopup>
+        )}
 
         <InvertedPopup content="logout">
           <Menu.Item name="logout" onClick={logout}>
@@ -99,7 +97,11 @@ function MenuBar() {
       </Menu.Menu>
     </Menu>
   );
+  {
+    /* </> */
+  }
 
+  // );
   return menuBar;
 }
 

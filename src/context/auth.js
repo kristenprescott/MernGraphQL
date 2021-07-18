@@ -51,6 +51,10 @@ function AuthProvider(props) {
       type: "LOGIN",
       payload: userData,
     });
+
+    console.log("LOGIN:");
+    console.log("token: ", userData.token);
+    console.log("userData: ", userData);
   }
 
   function logout() {
