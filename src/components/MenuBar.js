@@ -16,9 +16,7 @@ function MenuBar() {
     setActiveItem(name);
   };
 
-  // return (
   const menuBar = user ? (
-    // <>
     <Menu attached="top" tabular pointing secondary size="massive" color="red">
       <InvertedPopup content="go to homepage">
         <Menu.Item as={Link} to="/">
@@ -29,7 +27,7 @@ function MenuBar() {
 
       <Menu.Menu position="right">
         <InvertedPopup content="make a new post">
-          <Menu.Item name="newpost" as={Link} to="/newpost" name="newpost">
+          <Menu.Item name="newpost" as={Link} to="/newpost">
             <Icon name="edit" />
             <h6>New Post</h6>
           </Menu.Item>
@@ -101,11 +99,7 @@ function MenuBar() {
       </Menu.Menu>
     </Menu>
   );
-  {
-    /* </> */
-  }
 
-  // );
   return menuBar;
 }
 
