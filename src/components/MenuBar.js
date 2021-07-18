@@ -38,7 +38,11 @@ function MenuBar() {
         {/* TODO: link to user profile once Profile component is made */}
         {user && (
           <InvertedPopup content="go to your profile page">
-            <Menu.Item name={user.username} as={Link} to="/">
+            <Menu.Item
+              name={user.username}
+              as={Link}
+              to={`/profile/${user.id}`}
+            >
               <Icon name="user" />
               <h6>{user.username}</h6>
             </Menu.Item>
