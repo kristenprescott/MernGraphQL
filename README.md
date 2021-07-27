@@ -12,15 +12,11 @@
 
 <pre>
 
-<kbd>MongoDB*</kbd>
-
-<kbd>Express</kbd>
-
-<kbd>React</kbd>
-
-<kbd>Node.js</kbd>
-
-<kbd>GraphQL*</kbd>
+- MongoDB
+- Express
+- React
+- Node.js
+- GraphQL
           
 
 
@@ -36,17 +32,12 @@
 
 <pre>
 
-<kbd>@apollo/react-hooks</kbd>
-
-<kbd>apollo-cache-inmemory</kbd>
-
-<kbd>apollo-link-http</kbd>
-
-<kbd>apollo-client</kbd>
-
-<kbd>jwt-decode</kbd>
-
-<kbd>apollo-link-context</kbd>
+- @apollo/react-hooks
+- apollo-cache-inmemory
+- apollo-link-http
+- apollo-client
+- jwt-decode
+- apollo-link-context
 
 
 
