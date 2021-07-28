@@ -3,9 +3,13 @@
 # MERNGraphQL
 
 [Demo](https://merngraphql.netlify.app/)
+          
+<img align="center" width="600" alt="Screen Shot 2021-07-28 at 8 36 22 AM" src="https://user-images.githubusercontent.com/55470100/127323413-bb951336-3691-47eb-b832-14c5dc9b871d.png">
 
 ---
 
+          
+<!--           
 ## The Teck Stack
 
 <div align="left">
@@ -43,6 +47,6 @@
 
 </pre>
 
-</div>
+</div> -->
 
 </div>
